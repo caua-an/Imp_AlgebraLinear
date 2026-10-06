@@ -1,4 +1,4 @@
-
+# variavel para comparação valida com float muito pequenos e quebrados
 EPSILON = 1e-10
 
 
@@ -58,16 +58,20 @@ def eliminar_abaixo(matriz, linha_pivo, coluna_pivo):
     pivo = matriz[linha_pivo][coluna_pivo]
 
     for linha in range(linha_pivo + 1, len(matriz)):
+        # elemento que deve ser eliminado 
         elemento = matriz[linha][coluna_pivo]
 
+        # verifica se o elemento ja esta zerado
         if abs(elemento) < EPSILON:
             continue
 
         fator = elemento / pivo
-
+        # loop que vai realizar matematicamente a elimininacao de gauss 
         for coluna in range(coluna_pivo, len(matriz[linha])):
+            # Li <- Li - fator * Lp
             matriz[linha][coluna] -= fator * matriz[linha_pivo][coluna]
-
+            
+        # caso ainda escape da regra do float mais baixo que epsilon
         matriz[linha][coluna_pivo] = 0.0
 
 """funçao para realizar o escalonamento em todo o sistema linear"""
@@ -79,7 +83,7 @@ def escalonar(matriz):
     numero_incognitas = len(matriz[0]) - 1
 
     linha_pivo = 0
-
+    # loop que vai realizando o processo de escalonar pelas colunas
     for coluna_pivo in range(numero_incognitas):
 
         if linha_pivo >= numero_linhas:
